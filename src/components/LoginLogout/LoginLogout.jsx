@@ -14,11 +14,11 @@ export const LoginLogout = () => {
     <>
       <div className="container">
         <LoginWithGoogle />
-        {!user && (
+        {/* {!user && (
           <button className='container btn btn-info mt-2'>
             <Link to='/loginwithform'>Ingresar con email</Link>
           </button>
-        )}
+        )} */}
       </div>
     </>
   );

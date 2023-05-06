@@ -54,10 +54,11 @@ export const LoginWithGoogle = () => {
   return (
 
     <div className="d-flex justify-content-center align-items-center flex-column mt-3">
-
+      {/* {loading && <div className="mt-3">Aguarde unos segundos...</div>} */}
       <button className="btn btn-danger" onClick={handleLoginClick}>
         <i className="bi bi-google"></i> Iniciar sesión con Google
       </button>
+      
       {error && <div className="text-danger mt-3">Error: {error.message}</div>}
     </div>
   );
