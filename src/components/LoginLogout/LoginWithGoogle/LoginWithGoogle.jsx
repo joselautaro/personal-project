@@ -27,7 +27,7 @@ export const LoginWithGoogle = () => {
 
   // Maneja el evento de click en el botón de login con Google
   const handleLoginClick = () => {
-    firebase.auth().signInWithPopup(provider);
+    firebase.auth().signInWithRedirect(provider);
   };
   const handleLogoutClick = () => {
     firebase.auth().signOut();
