@@ -58,7 +58,6 @@ export const LoginWithGoogle = () => {
       <button className="btn btn-danger" onClick={handleLoginClick}>
         <i className="bi bi-google"></i> Iniciar sesión con Google
       </button>
-      {loading && <div className="mt-3">Cargando...</div>}
       {error && <div className="text-danger mt-3">Error: {error.message}</div>}
     </div>
   );
