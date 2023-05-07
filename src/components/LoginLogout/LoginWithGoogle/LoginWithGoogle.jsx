@@ -1,8 +1,10 @@
 import React from "react";
+
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { Post } from "../../Post/Post";
 // const [confirmPassword, setConfirmPassword] = useState("")
 
 // Configura Firebase
@@ -18,45 +20,52 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
 // Crea una instancia del proveedor de autenticación de Google
 const provider = new firebase.auth.GoogleAuthProvider();
 
 export const LoginWithGoogle = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // Obtiene el objeto de autenticación de Firebase
   const [user, loading, error] = useAuthState(firebase.auth());
 
   // Maneja el evento de click en el botón de login con Google
   const handleLoginClick = () => {
     firebase.auth().signInWithRedirect(provider);
+    setIsLoggedIn(true)
   };
   const handleLogoutClick = () => {
     firebase.auth().signOut();
+    setIsLoggedIn(false)
   };
 
   // Si el usuario está autenticado, muestra un mensaje de bienvenida y el botón de logout
   if (user) {
     return (
+      
       <div className="d-flex justify-content-center align-items-center flex-column">
         <h5 className="text-center my-4">Bienvenido, {user.displayName}</h5>
         <button className="btn btn-danger" onClick={handleLogoutClick}>
           Cerrar sesión
         </button>
+        
+        <Post disabled={!isLoggedIn}/>
       </div>
     );
   }
 
   // Si el usuario está autenticado, muestra un mensaje de bienvenida
   if (user) {
-    return <h3 className="text-center my-4">Bienvenido, {user.displayName}</h3>;
+    return <h3 className="text-center my-4">Te damos la bienvenida, {user.displayName}</h3>;
   }
 
   // Si el usuario no ha iniciado sesión aún, muestra el botón de login con Google
   return (
 
     <div className="d-flex justify-content-center align-items-center flex-column mt-3">
-      {/* {loading && <div className="mt-3">Aguarde unos segundos...</div>} */}
-      <button className="btn btn-danger" onClick={handleLoginClick}>
-        <i className="bi bi-google"></i> Iniciar sesión con Google
+      {loading && <div className="m-5 ">Aguarde unos segundos...</div>}
+      <button className="btn btn-danger mt-5" onClick={handleLoginClick}>
+        <i className="bi bi-google"></i> Iniciar sesión con Google para ver más contenido
       </button>
       
       {error && <div className="text-danger mt-3">Error: {error.message}</div>}
