@@ -44,16 +44,15 @@ export const Post = () => {
             description: description
         })
             .then((docRef) => {
+                Swal.fire({
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 700
+                })
                 console.log('Document  created with id: ', docRef.id);
                 setDescription('')
                 setName('')
                 setUrl('')
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Tu post ha sido publicado correctamente',
-                    showConfirmButton: false,
-                    timer: 1000
-                })
             })
             .catch((error) => {
                 console.error('Error to create id: ', error);
@@ -91,14 +90,13 @@ export const Post = () => {
 
 
 
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
         try {
-            await deleteDoc(doc(db, "posts", id));
+             deleteDoc(doc(db, "posts", id));
             Swal.fire({
-                icon: 'success',
-                title: 'Tu post ha sido eliminado correctamente',
+                title: 'Tu mensaje se ha eliminado',
                 showConfirmButton: false,
-                timer: 1000
+                timer: 700
             })
         } catch (error) {
             console.error("Error deleting document: ", error);
@@ -117,39 +115,9 @@ export const Post = () => {
 
 
     return (
+        
         <>
-            <form onSubmit={handleSubmit} className="container mt-3">
-                <div className="card text-center mb-3" >
-                    <div className="card-body">
-                        <h5 className="card-title">Agregar publicación</h5>
-                        <div className="input-group input-group-sm mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
-                            <input type="text" className="form-control" placeholder="ingrese url a agregar"
-                                onChange={(e) => setUrl(e.target.value)}
-                                value={url}
-                            />
-                        </div>
-
-                        <div className="input-group input-group-sm mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
-                            <input type="text" className="form-control" placeholder="ingrese nombre del sitio"
-                                onChange={(e) => setName(e.target.value)}
-                                value={name}
-                            />
-                        </div>
-                        <div className="input-group input-group-sm mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
-                            <input type="text" className="form-control" placeholder="ingrese descripción del sitio"
-                                onChange={(e) => setDescription(e.target.value)}
-                                value={description}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <button className="col-12 btn btn-success">Publicar</button>
-            </form>
-            <hr />
-            <div className="container">
+        <div className="container">
                 <div className=" card text-center mb-3">
                     <div className="card-body">
 
@@ -172,6 +140,39 @@ export const Post = () => {
                     </div>
                 </div>
             </div>
+            <hr />
+            <form onSubmit={handleSubmit} className="container mt-3">
+            <button className="col-12 btn btn-success">Publicar</button>
+                <div className="card text-center mb-3" >
+                    <div className="card-body">
+                        <h5 className="card-title">Agregar publicación</h5>
+                        <div className="input-group input-group-sm mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
+                            <input type="text" className="form-control" placeholder="si desea, escriba su url"
+                                onChange={(e) => setUrl(e.target.value)}
+                                value={url}  
+                            />
+                        </div>
+
+                        <div className="input-group input-group-sm mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
+                            <input type="text" className="form-control" placeholder="ingrese asunto del mensaje"
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
+                            />
+                        </div>
+                        <div className="input-group input-group-sm mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
+                            <input type="text" className="form-control" placeholder="escriba aquí su mensaje"
+                                onChange={(e) => setDescription(e.target.value)}
+                                value={description}
+                            />
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+            <hr />
         </>
     )
 }

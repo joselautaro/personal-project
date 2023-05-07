@@ -45,7 +45,7 @@ export const LoginWithGoogle = () => {
       
       <div className="d-flex justify-content-center align-items-center flex-column">
         <h5 className="text-center my-4">Bienvenido, {user.displayName}</h5>
-        <button className="btn btn-danger" onClick={handleLogoutClick}>
+        <button className="btn btn-danger mb-3" onClick={handleLogoutClick}>
           Cerrar sesión
         </button>
         
@@ -65,7 +65,7 @@ export const LoginWithGoogle = () => {
     <div className="d-flex justify-content-center align-items-center flex-column mt-3">
       {loading && <div className="m-5 ">Aguarde unos segundos...</div>}
       <button className="btn btn-danger mt-5" onClick={handleLoginClick}>
-        <i className="bi bi-google"></i> Iniciar sesión con Google para ver más contenido
+        <i className="bi bi-google"></i>Para usar esta aplicación, debe loguearse con google
       </button>
       
       {error && <div className="text-danger mt-3">Error: {error.message}</div>}
