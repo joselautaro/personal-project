@@ -145,7 +145,7 @@ export const Post = () => {
             <button className="col-12 btn btn-success">Publicar</button>
                 <div className="card text-center mb-3" >
                     <div className="card-body">
-                        <h5 className="card-title">Agregar publicación</h5>
+                        <h5 className="card-title">Agregar mensaje</h5>
                         <div className="input-group input-group-sm mb-3">
                             <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
                             <input type="text" className="form-control" placeholder="si desea, escriba su url"

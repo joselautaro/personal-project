@@ -44,7 +44,7 @@ export const LoginWithGoogle = () => {
     return (
       
       <div className="d-flex justify-content-center align-items-center flex-column">
-        <h5 className="text-center my-4">Bienvenido, {user.displayName}</h5>
+        <h5 className="text-center my-4">Te damos la bienvenida, {user.displayName}</h5>
         <button className="btn btn-danger mb-3" onClick={handleLogoutClick}>
           Cerrar sesión
         </button>
