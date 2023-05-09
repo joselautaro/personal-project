@@ -1,11 +1,9 @@
 import React from "react";
-
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { Post } from "../../Post/Post";
-// const [confirmPassword, setConfirmPassword] = useState("")
 
 // Configura Firebase
 const firebaseConfig = {

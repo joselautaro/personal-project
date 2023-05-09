@@ -160,7 +160,7 @@ export const Post = () => {
                         </div>
                     ))}
                 </div>
-                <form onSubmit={handleSubmit} className="form-container container">
+                <form onSubmit={handleSubmit} className="form container">
                     <div className="card text-center" >
                         <div className="card-body">
                             <h5 className="card-title">¿Como te sientes el dia de hoy?</h5>
