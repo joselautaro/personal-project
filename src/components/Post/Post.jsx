@@ -19,6 +19,9 @@ export const Post = () => {
 
     const [description, setDescription] = useState("")
 
+    const [posting, setPosting] = useState(false);
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const db = getFirestore();
@@ -44,7 +47,8 @@ export const Post = () => {
                 setDescription('');
                 setName('');
                 setUrl('');
-                sharePost(docRef.id);
+                setPosting(true);
+                // sharePost(docRef.id);
             })
             .catch((error) => {
                 console.error('Error creating document: ', error);
@@ -102,16 +106,29 @@ export const Post = () => {
             });
     };
 
+    // const sharePost = (postId) => {
+    //     const shareUrl = `${window.location.origin}/post/${postId}`;
+    //     navigator.clipboard.writeText(shareUrl);
+    //     Swal.fire({
+    //         icon: 'success',
+    //         title: `El link de tu publicación es: ${shareUrl}`,
+    //         text: 'Copialo y pegalo donde quieras',
+    //     })
+    //     // alert(`URL copiada al portapapeles: ${shareUrl}`);
+    // };
+
     const sharePost = (postId) => {
         const shareUrl = `${window.location.origin}/post/${postId}`;
         navigator.clipboard.writeText(shareUrl);
-        Swal.fire({
-            icon: 'success',
-            title: `El link de tu publicación es: ${shareUrl}`,
-            text: 'Copialo y pegalo donde quieras',
-        })
-        // alert(`URL copiada al portapapeles: ${shareUrl}`);
+        if (!posting) {
+            Swal.fire({
+                icon: 'success',
+                title: `El link de tu publicación es: ${shareUrl}`,
+                text: 'Copialo y pegalo donde quieras',
+            });
+        }
     };
+    
 
 
 
@@ -119,36 +136,31 @@ export const Post = () => {
 
 
     return (
-
         <>
-            <div className="container">
-
-                {posts.map((post) => (
-                    <div className="card" key={post.id}>
-                        <div className="d-flex justify-content-end">
-                            {/* <GrEdit className="m-3" onClick={() => handle(post.id)} /> */}
-                            <SlTrash onClick={() => handleDelete(post.id)} />
+                <div style={{ height: '350px', overflowY: 'scroll', width: '100%'}}>
+                    {posts.map((post) => (
+                        <div className="card" key={post.id}>
+                            <div className="container d-flex justify-content-end">
+                                {/* <GrEdit className="m-3" onClick={() => handle(post.id)} /> */}
+                                <SlTrash onClick={() => handleDelete(post.id)} />
+                            </div>
+                            <div className="card-body text-center">
+                                <h4>{post.name}</h4>
+                                <p>{post.description}</p>
+                                <button className="btn btn-primary" onClick={() => handleLike(post.id, post.likes)}><AiOutlineLike /></button>
+                                <p>{post.likes} personas les gusta esto</p>
+                                <button onClick={() => sharePost(post.id)}>
+                                    <FaShareSquare />
+                                </button>
+                                <p className="time">
+                                    Publicado el {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("es-ES") : ''} a las{" "}
+                                    {post.date ? new Date(post.date.seconds * 1000).toLocaleTimeString("es-ES") : ''}
+                                </p>
+                            </div>
                         </div>
-                        <div className="card-body text-center">
-                            <h4>{post.name}</h4>
-                            <p>{post.description}</p>
-                            <button className="btn btn-primary" onClick={() => handleLike(post.id, post.likes)}><AiOutlineLike /></button>
-                            <p>{post.likes} personas les gusta esto</p>
-                            <button className="btn btn-primary" onClick={() => sharePost(post.id)}>
-                                <FaShareSquare />
-                            </button>
-                            <p className="time">
-                                Publicado el {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("es-ES") : ''} a las{" "}
-                                {post.date ? new Date(post.date.seconds * 1000).toLocaleTimeString("es-ES") : ''}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <div style={{ position: 'fixed', bottom: '0', left: '0', width: '100%' }}>
+                    ))}
+                </div>
                 <form onSubmit={handleSubmit} className="form-container container">
-                    <button className="col-12 btn btn-success">Publicar</button>
                     <div className="card text-center" >
                         <div className="card-body">
                             <h5 className="card-title">¿Como te sientes el dia de hoy?</h5>
@@ -160,11 +172,9 @@ export const Post = () => {
                                 />
                             </div>
                         </div>
+                        <button className="col-12 btn btn-success">Publicar</button>
                     </div>
-
                 </form>
-            </div>
-            <hr />
         </>
     )
 }
