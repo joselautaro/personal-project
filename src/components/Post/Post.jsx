@@ -19,11 +19,6 @@ export const Post = () => {
 
     const [description, setDescription] = useState("")
 
-    const [shareURL, setShareURL] = useState("");
-
-
-    const [copied, setCopied] = useState(false);
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const db = getFirestore();
@@ -49,6 +44,7 @@ export const Post = () => {
                 setDescription('');
                 setName('');
                 setUrl('');
+                sharePost(docRef.id);
             })
             .catch((error) => {
                 console.error('Error creating document: ', error);
@@ -106,27 +102,12 @@ export const Post = () => {
             });
     };
 
-    // Función para compartir el post
-
-
-    // const handleShareClick = () => {
-    //     setShareURL(window.location.href);
-    //     if (navigator.share) {
-    //         navigator.share({
-    //             title: post.name,
-    //             text: post.description,
-    //             url: window.location.href
-    //         })
-    //             .then(() => console.log('Successful share'))
-    //             .catch((error) => console.log('Error sharing:', error));
-    //     }
-    // }
-
-    const sharePost = () => {
-        const shareUrl = `${window.location.origin}/post/${post.id}`;
+    const sharePost = (postId) => {
+        const shareUrl = `${window.location.origin}/post/${postId}`;
         navigator.clipboard.writeText(shareUrl);
         alert(`URL copiada al portapapeles: ${shareUrl}`);
-    };
+      };
+    
 
 
     // Lista de post
