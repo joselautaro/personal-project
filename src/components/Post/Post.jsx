@@ -122,12 +122,11 @@ export const Post = () => {
     //     }
     // }
 
-    const sharePost = (id) => {
-        const baseUrl = "https://personal-project-pi.vercel.app";
-        const url = `${baseUrl}/post/${id}`;
-        navigator.clipboard.writeText(url);
-        setCopied(true);
-      };
+    const sharePost = () => {
+        const shareUrl = `${window.location.origin}/post/${post.id}`;
+        navigator.clipboard.writeText(shareUrl);
+        alert(`URL copiada al portapapeles: ${shareUrl}`);
+    };
 
 
     // Lista de post
@@ -149,7 +148,7 @@ export const Post = () => {
                             <p>{post.description}</p>
                             <button className="btn btn-primary" onClick={() => handleLike(post.id, post.likes)}><AiOutlineLike /></button>
                             <p>{post.likes} personas les gusta esto</p>
-                             <button className="btn btn-primary" onClick={() => sharePost(post.id)}>
+                            <button className="btn btn-primary" onClick={() => sharePost(post.id)}>
                                 <FaShareSquare />
                             </button>
                             <p className="time">
@@ -160,7 +159,7 @@ export const Post = () => {
                     </div>
                 ))}
             </div>
-           
+
             <div style={{ position: 'fixed', bottom: '0', left: '0', width: '100%' }}>
                 <form onSubmit={handleSubmit} className="form-container container">
                     <button className="col-12 btn btn-success">Publicar</button>
