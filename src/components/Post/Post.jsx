@@ -105,9 +105,14 @@ export const Post = () => {
     const sharePost = (postId) => {
         const shareUrl = `${window.location.origin}/post/${postId}`;
         navigator.clipboard.writeText(shareUrl);
-        alert(`URL copiada al portapapeles: ${shareUrl}`);
-      };
-    
+        Swal.fire({
+            icon: 'success',
+            title: `El link de tu publicación es: ${shareUrl}`,
+            text: 'Copialo y pegalo donde quieras',
+        })
+        // alert(`URL copiada al portapapeles: ${shareUrl}`);
+    };
+
 
 
     // Lista de post
