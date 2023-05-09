@@ -149,8 +149,7 @@ export const Post = () => {
                             <p>{post.description}</p>
                             <button className="btn btn-primary" onClick={() => handleLike(post.id, post.likes)}><AiOutlineLike /></button>
                             <p>{post.likes} personas les gusta esto</p>
-                             <button className="btn btn-primary" onClick={sharePost
-                            }>
+                             <button className="btn btn-primary" onClick={() => sharePost(post.id)}>
                                 <FaShareSquare />
                             </button>
                             <p className="time">
