@@ -111,24 +111,24 @@ export const Post = () => {
     // Función para compartir el post
 
 
-    const handleShareClick = () => {
-        setShareURL(window.location.href);
-        if (navigator.share) {
-            navigator.share({
-                title: post.name,
-                text: post.description,
-                url: window.location.href
-            })
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing:', error));
-        }
-    }
+    // const handleShareClick = () => {
+    //     setShareURL(window.location.href);
+    //     if (navigator.share) {
+    //         navigator.share({
+    //             title: post.name,
+    //             text: post.description,
+    //             url: window.location.href
+    //         })
+    //             .then(() => console.log('Successful share'))
+    //             .catch((error) => console.log('Error sharing:', error));
+    //     }
+    // }
 
-    // const handleShare = (id) => {
-    //     const postUrl = `${window.location.protocol}//${window.location.host}/post/${id}`;
-    //     navigator.clipboard.writeText(postUrl);
-    //     alert('La URL del post ha sido copiada al portapapeles.');
-    //   }
+    const handleShare = (id) => {
+        const postUrl = `${window.location.protocol}//${window.location.host}/post/${id}`;
+        navigator.clipboard.writeText(postUrl);
+        alert('La URL del post ha sido copiada al portapapeles.');
+      }
 
 
     // Lista de post
@@ -150,7 +150,7 @@ export const Post = () => {
                             <p>{post.description}</p>
                             <button className="btn btn-primary" onClick={() => handleLike(post.id, post.likes)}><AiOutlineLike /></button>
                             <p>{post.likes} personas les gusta esto</p>
-                             <button className="btn btn-primary" onClick={handleShareClick}>
+                             <button className="btn btn-primary" onClick={handleShare}>
                                 <FaShareSquare />
                             </button>
                             <p className="time">
