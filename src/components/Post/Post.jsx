@@ -22,9 +22,7 @@ export const Post = () => {
     const [shareURL, setShareURL] = useState("");
 
 
-    // const user = auth.currentUser;
-
-    // const [currentId, setCurrentId] = useState('')
+    const [copied, setCopied] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -124,11 +122,12 @@ export const Post = () => {
     //     }
     // }
 
-    const handleShare = (id) => {
-        const postUrl = `${window.location.protocol}//${window.location.host}/post/${id}`;
-        navigator.clipboard.writeText(postUrl);
-        alert('La URL del post ha sido copiada al portapapeles.');
-      }
+    const sharePost = (id) => {
+        const baseUrl = "https://personal-project-pi.vercel.app";
+        const url = `${baseUrl}/post/${id}`;
+        navigator.clipboard.writeText(url);
+        setCopied(true);
+      };
 
 
     // Lista de post
@@ -150,7 +149,8 @@ export const Post = () => {
                             <p>{post.description}</p>
                             <button className="btn btn-primary" onClick={() => handleLike(post.id, post.likes)}><AiOutlineLike /></button>
                             <p>{post.likes} personas les gusta esto</p>
-                             <button className="btn btn-primary" onClick={handleShare}>
+                             <button className="btn btn-primary" onClick={sharePost
+                            }>
                                 <FaShareSquare />
                             </button>
                             <p className="time">
