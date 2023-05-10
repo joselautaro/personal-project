@@ -39,10 +39,10 @@ export const Post = () => {
             likes: 0,
             // username: user.displayName
             // username: user.displayName
-            user: {
-                id: user.uid, // Agregar el ID del usuario
-                name: user.displayName // Agregar el nombre del usuario
-              }
+            // user: {
+            //     id: user.uid, // Agregar el ID del usuario
+            //     name: user.displayName // Agregar el nombre del usuario
+            //   }
         };
 
         const newCollectionRef = collection(db, 'posts');
