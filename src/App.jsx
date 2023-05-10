@@ -1,5 +1,4 @@
 // import { Post } from './components/Post/Post'
-import { Profile } from './components/Profile/Profile'
 import { Register } from './components/Register/Register'
 import { AuthProvider } from './context/AuthContext'
 // import { LoginLogout } from './components/LoginLogout/LoginLogout'
@@ -9,12 +8,14 @@ import { Post } from './components/Post/Post'
 import { PostsProvider } from './context/PostsContext'
 import { LoginWithGoogle } from './components/LoginLogout/LoginWithGoogle/LoginWithGoogle'
 import { NavBar } from './components/NavBar/NavBar'
+import { Profile } from './components/Profile/Profile'
 import {
   BrowserRouter as Router,
   Routes,
   // Navigate,
   Route,
 } from 'react-router-dom'
+
 
 
 function App() {
