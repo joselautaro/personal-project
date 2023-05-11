@@ -10,39 +10,31 @@ import Swal from "sweetalert2"
 import './Post.css'
 
 
-export const Post = () => {
+export const Post = (props) => {
 
     const [posts, setPosts] = useState([])
 
-    const [url, setUrl] = useState("")
+    // const [url, setUrl] = useState("")
 
-    const [name, setName] = useState("")
+    // const [name, setName] = useState("")
 
     const [description, setDescription] = useState("")
 
     const [posting, setPosting] = useState(false);
 
-    // const user = useUser() 
+    const [currentUser, setCurrentUser] = useState(props.getUser());
 
-    const auth = getAuth();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const db = getFirestore();
-        // const user = auth.currentUser;
-        
+
 
         const post = {
-            url: url,
-            name: name,
+            name: currentUser.displayName,
             description: description,
             date: serverTimestamp(),// agregar la fecha del servidor
             likes: 0,
-            // username: user.displayName
-            // username: user.displayName
-            // user: {
-            //     id: user.uid, // Agregar el ID del usuario
-            //     name: user.displayName // Agregar el nombre del usuario
-            //   }
         };
 
         const newCollectionRef = collection(db, 'posts');
@@ -55,15 +47,15 @@ export const Post = () => {
                 });
                 console.log('Document created with id: ', docRef.id);
                 setDescription('');
-                setName('');
-                setUrl('');
                 setPosting(true);
-                // sharePost(docRef.id);
+                setCurrentUser()
             })
             .catch((error) => {
                 console.error('Error creating document: ', error);
             });
     };
+    
+
 
     // Funcion para obtener los posts y renderizarlos de nuevo con useEffect
     const getPosts = () => {
@@ -116,7 +108,7 @@ export const Post = () => {
             });
     };
 
-
+// Funcion para compartir
     const sharePost = (postId) => {
         const shareUrl = `${window.location.origin}/post/${postId}`;
         navigator.clipboard.writeText(shareUrl);
@@ -134,48 +126,10 @@ export const Post = () => {
         }
     };
 
-    // const SharePost = ({ postId }) => {
-    //     const [posting, setPosting] = useState(false);
-
-    //     const shareUrl = `${window.location.origin}/post/${postId}`;
-
-    //     const handleCopyClick = () => {
-    //       navigator.clipboard.writeText(shareUrl);
-    //       Swal.fire({
-    //         icon: 'success',
-    //         title: '¡Enlace copiado!',
-    //         text: 'Puedes pegarlo donde quieras',
-    //         timer: 3000, // opcional: muestra el mensaje durante 3 segundos
-    //         timerProgressBar: true, // opcional: muestra una barra de progreso
-    //         showConfirmButton: false, // opcional: no muestra el botón de confirmación
-    //       });
-    //     };
-
-    //     return (
-    //       <button onClick={handleCopyClick} disabled={posting}>
-    //         <FiCopy />
-    //         Copiar enlace
-    //       </button>
-    //     );
-    //   };
-    //   En este ejemplo, utilizo el icono FiCopy del paquete react-icons/fi. También agregué un estado posting para deshabilitar el botón mientras se está realizando la publicación. Al hacer clic en el botón, se llama a navigator.clipboard.writeText() para copiar la URL y se muestra un mensaje de éxito utilizando Swal.fire(). Este mensaje desaparece automáticamente después de 3 segundos.
-
-
-
-
-
-
-
-
-
-
-
-    // Lista de post
-
 
     return (
         <>
-        <form onSubmit={handleSubmit} className="form container mb-2">
+            <form onSubmit={handleSubmit} className="form container mb-2">
                 <div className="card text-center" >
                     <div className="card-body">
                         <h5 className="card-title">¿Como te sientes el dia de hoy?</h5>
@@ -190,13 +144,12 @@ export const Post = () => {
                     </div>
                     
                 </div>
-            </form>
+            </form> 
             <div className="container">
                 <div style={{ height: '100%', width: '100%' }}>
                     {posts.map((post) => (
                         <div className="card mb-2" key={post.id}>
                             <div className="container d-flex justify-content-end">
-                                {/* <GrEdit className="m-3" onClick={() => handle(post.id)} /> */}
                                 <SlTrash className="m-2" onClick={() => handleDelete(post.id)} />
                             </div>
                             <div className="card-body text-center">
@@ -219,15 +172,15 @@ export const Post = () => {
                     ))}
                 </div>
             </div>
-            
         </>
     )
 }
+{/* <GrEdit className="m-3" onClick={() => handle(post.id)} /> */ }
 {/* <div className="input-group input-group-sm mb-3">
     <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
     <input type="text" className="form-control" placeholder="si desea, escriba su url"
-        onChange={(e) => setUrl(e.target.value)}
-        value={url}
+    onChange={(e) => setUrl(e.target.value)}
+    value={url}
     />
 </div> */}
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -36,6 +36,9 @@ export const LoginWithGoogle = () => {
     firebase.auth().signOut();
     setIsLoggedIn(false)
   };
+  const getUser = () => {
+    return user;
+  };
 
   // Si el usuario está autenticado, muestra un mensaje de bienvenida y el botón de logout
   if (user) {
@@ -47,7 +50,7 @@ export const LoginWithGoogle = () => {
           Cerrar sesión
         </button>
         
-        <Post disabled={!isLoggedIn}/>
+        <Post disabled={!isLoggedIn} getUser={getUser} />
       </div>
     );
   }
@@ -56,6 +59,11 @@ export const LoginWithGoogle = () => {
   if (user) {
     return <h3 className="text-center my-4">Te damos la bienvenida, {user.displayName}</h3>;
   }
+
+  // funcion de obtencion del nombre del usuario
+
+  
+  
 
   // Si el usuario no ha iniciado sesión aún, muestra el botón de login con Google
   return (
