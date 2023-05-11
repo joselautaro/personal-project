@@ -1,8 +1,9 @@
 import { addDoc, collection, getFirestore, getDocs, onSnapshot, deleteDoc, doc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore"
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 import React, { useState, useEffect } from "react"
 import { AiFillEdit } from 'react-icons/ai'
 import { SlTrash } from 'react-icons/sl'
+import {FcCheckmark } from 'react-icons/fc'
 import { AiOutlineLike } from 'react-icons/ai'
 import { FaShareSquare } from "react-icons/fa";
 import { db } from '../../firebase'
@@ -13,10 +14,6 @@ import './Post.css'
 export const Post = (props) => {
 
     const [posts, setPosts] = useState([])
-
-    // const [url, setUrl] = useState("")
-
-    // const [name, setName] = useState("")
 
     const [description, setDescription] = useState("")
 
@@ -53,7 +50,7 @@ export const Post = (props) => {
                 console.error('Error creating document: ', error);
             });
     };
-    
+
 
 
     // Funcion para obtener los posts y renderizarlos de nuevo con useEffect
@@ -107,7 +104,7 @@ export const Post = (props) => {
             });
     };
 
-// Funcion para compartir
+    // Funcion para compartir
     const sharePost = (postId) => {
         const shareUrl = `${window.location.origin}/post/${postId}`;
         navigator.clipboard.writeText(shareUrl);
@@ -128,22 +125,30 @@ export const Post = (props) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="form container mb-2">
-                <div className="card text-center" >
+            
+            <form onSubmit={handleSubmit} className="form container mb-2 w-50">
+                <div className="card text-center">
                     <div className="card-body">
                         <h5 className="card-title">¿Como te sientes el dia de hoy?</h5>
                         <div className="input-group input-group-sm">
-                            <input type="text" className="form-control" placeholder="escriba aquí su estado"
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Escriba aquí su estado"
                                 onChange={(e) => setDescription(e.target.value)}
                                 value={description}
                             />
-                            <span className="input-group-text" id="inputGroup-sizing-sm"><AiFillEdit /></span>
-                            <button className="col-12 btn btn-success">Publicar</button>
+                            <span className="input-group-text" id="inputGroup-sizing-sm">
+                                <AiFillEdit />
+                            </span>
+                            <button className="col-auto">
+                                <FcCheckmark style={{ color: 'black'}} size="2em"/>
+                            </button>
                         </div>
                     </div>
-                    
                 </div>
-            </form> 
+            </form>
+
             <div className="container">
                 <div style={{ height: '100%', width: '100%' }}>
                     {posts.map((post) => (
@@ -152,7 +157,7 @@ export const Post = (props) => {
                                 <SlTrash className="m-2" onClick={() => handleDelete(post.id)} />
                             </div>
                             <div className="card-body text-center">
-                            <p className="card-text">Posted by: {post.id.name}</p>
+                                <p className="card-text">Posted by: {post.id.name}</p>
 
                                 <h4>{post.name}</h4>
                                 <p>{post.description}</p>
