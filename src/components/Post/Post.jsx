@@ -48,7 +48,6 @@ export const Post = (props) => {
                 console.log('Document created with id: ', docRef.id);
                 setDescription('');
                 setPosting(true);
-                setCurrentUser()
             })
             .catch((error) => {
                 console.error('Error creating document: ', error);
