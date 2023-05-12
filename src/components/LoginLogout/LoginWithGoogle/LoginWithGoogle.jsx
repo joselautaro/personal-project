@@ -29,6 +29,8 @@ export const LoginWithGoogle = () => {
   // Obtiene el objeto de autenticación de Firebase
   const [user, loading, error] = useAuthState(firebase.auth());
 
+  const userName = user ? user.displayName : '';
+
   // Maneja el evento de click en el botón de login con Google
   const handleLoginClick = () => {
     firebase.auth().signInWithRedirect(provider);
@@ -39,7 +41,7 @@ export const LoginWithGoogle = () => {
     firebase.auth().signOut();
     setIsLoggedIn(false)
   };
-  
+
   const getUser = () => {
     return user;
   };
@@ -50,11 +52,16 @@ export const LoginWithGoogle = () => {
       <>
         {user ? (
           <div className="welcome">
-            <h5 className="text-center my-4">
+            {/* <h5 className="text-center">
               Te damos la bienvenida, {user.displayName}{" "}
-              <RiLogoutBoxRFill className="login" onClick={handleLogoutClick} />
-            </h5>
-            <Post disabled={!isLoggedIn} getUser={getUser} />
+              
+            </h5> */}
+            <div>
+            <Post disabled={!isLoggedIn} userName={userName} getUser={getUser} />
+            <RiLogoutBoxRFill className="login" onClick={handleLogoutClick} />
+            </div>
+
+            
           </div>
         ) : (
           <div className="d-flex justify-content-center align-items-center flex-column mt-3">

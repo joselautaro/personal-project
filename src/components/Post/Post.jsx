@@ -126,10 +126,10 @@ export const Post = (props) => {
     return (
         <>
             
-            <form onSubmit={handleSubmit} className="form container mb-2 w-50">
+            <form onSubmit={handleSubmit} className="form container fixed-top">
                 <div className="card text-center">
                     <div className="card-body">
-                        <h5 className="card-title">¿Como te sientes el dia de hoy?</h5>
+                        <h5 className="card-title">Hola, {props.userName}¿Como te sientes el dia de hoy?</h5>
                         <div className="input-group input-group-sm">
                             <input
                                 type="text"
@@ -149,10 +149,10 @@ export const Post = (props) => {
                 </div>
             </form>
 
-            <div className="container">
-                <div style={{ height: '100%', width: '100%' }}>
+            <div className="container  mt-5">
+                <div className="cards" style={{ height: '100%', width: '100%' }}>
                     {posts.map((post) => (
-                        <div className="card mb-2" key={post.id}>
+                        <div className="card mt-2" key={post.id}>
                             <div className="container d-flex justify-content-end">
                                 <SlTrash className="m-2" onClick={() => handleDelete(post.id)} />
                             </div>

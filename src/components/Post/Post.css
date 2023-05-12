@@ -1,9 +1,14 @@
-.form {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 500;
+
+.card-title{
+  font-size: 15px;
+}
+.cards{
+  margin-top: 90px;
+}
+@media (max-width: 600px){
+  .cards{
+    margin-top: 90px;
+  }
 }
 
 
