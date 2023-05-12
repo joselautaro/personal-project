@@ -3,11 +3,11 @@
   font-size: 15px;
 }
 .cards{
-  margin-top: 90px;
+  margin-top: 125px;
 }
-@media (max-width: 600px){
+@media (max-width: 400px){
   .cards{
-    margin-top: 90px;
+    margin-top: 125px;
   }
 }
 

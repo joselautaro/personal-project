@@ -1,6 +1,6 @@
 import React from "react";
 import './login.css'
-import { RiLogoutBoxRFill } from 'react-icons/ri'
+// import { RiLogoutBoxRFill } from 'react-icons/ri'
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/compat/app";
@@ -37,10 +37,10 @@ export const LoginWithGoogle = () => {
     setIsLoggedIn(true)
   };
 
-  const handleLogoutClick = () => {
-    firebase.auth().signOut();
-    setIsLoggedIn(false)
-  };
+  // const handleLogoutClick = () => {
+  //   firebase.auth().signOut();
+  //   setIsLoggedIn(false)
+  // };
 
   const getUser = () => {
     return user;
@@ -57,8 +57,8 @@ export const LoginWithGoogle = () => {
               
             </h5> */}
             <div>
+            
             <Post disabled={!isLoggedIn} userName={userName} getUser={getUser} />
-            <RiLogoutBoxRFill className="login" onClick={handleLogoutClick} />
             </div>
 
             

@@ -1,11 +1,15 @@
 import { addDoc, collection, getFirestore, getDocs, onSnapshot, deleteDoc, doc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore"
 // import { getAuth } from "firebase/auth";
+import "firebase/compat/auth";
+import firebase from "firebase/compat/app";
 import React, { useState, useEffect } from "react"
+import { useAuthState } from "react-firebase-hooks/auth";
 import { AiFillEdit } from 'react-icons/ai'
 import { SlTrash } from 'react-icons/sl'
 import {FcCheckmark } from 'react-icons/fc'
 import { AiOutlineLike } from 'react-icons/ai'
 import { FaShareSquare } from "react-icons/fa";
+import { RiLogoutBoxRFill } from 'react-icons/ri'
 import { db } from '../../firebase'
 import Swal from "sweetalert2"
 import './Post.css'
@@ -71,6 +75,10 @@ export const Post = (props) => {
         getPosts();
     }, []);
 
+    const handleLogoutClick = () => {
+        firebase.auth().signOut();
+        setIsLoggedIn(false)
+      };
 
     // Funcion para eliminar los posts
     const handleDelete = (id) => {
@@ -130,6 +138,7 @@ export const Post = (props) => {
                 <div className="card text-center">
                     <div className="card-body">
                         <h5 className="card-title">Hola, {props.userName}¿Como te sientes el dia de hoy?</h5>
+                        <RiLogoutBoxRFill className="login" onClick={handleLogoutClick} />
                         <div className="input-group input-group-sm">
                             <input
                                 type="text"
