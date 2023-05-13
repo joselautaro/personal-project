@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 
 export const NavBar = () => {
-  console.log(NavBar)
+
 
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-expand-lg flex-row-reverse fixed-top">

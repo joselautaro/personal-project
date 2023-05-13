@@ -1,12 +1,11 @@
 import { addDoc, collection, getFirestore, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore"
-
 import "firebase/compat/auth";
 import firebase from "firebase/compat/app";
+import { subirArchivos } from "../../firebase";
 import React, { useState, useEffect } from "react"
-
 import { AiFillEdit } from 'react-icons/ai'
 import { SlTrash } from 'react-icons/sl'
-import {FcCheckmark } from 'react-icons/fc'
+import { FcCheckmark } from 'react-icons/fc'
 import { AiOutlineLike } from 'react-icons/ai'
 import { FaShareSquare } from "react-icons/fa";
 import { RiLogoutBoxRFill } from 'react-icons/ri'
@@ -25,37 +24,33 @@ export const Post = (props) => {
 
     const [currentUser, setCurrentUser] = useState(props.getUser());
 
+    const [file, setFile] = useState(null)
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const [imageURL, setImageURL] = useState(null);
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const imageURL = await subirArchivos(file);
+        // Agrega el post a Firestore
         const db = getFirestore();
-
-
         const post = {
-            name: currentUser.displayName,
-            description: description,
-            date: serverTimestamp(),// agregar la fecha del servidor
-            likes: 0,
+          name: currentUser.displayName,
+          description: description,
+          date: serverTimestamp(),
+          likes: 0,
+          imageURL: imageURL || null
         };
-
-        const newCollectionRef = collection(db, 'posts');
-        addDoc(newCollectionRef, post)
-            .then((docRef) => {
-                Swal.fire({
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 700
-                });
-                console.log('Document created with id: ', docRef.id);
-                setDescription('');
-                setPosting(true);
-            })
-            .catch((error) => {
-                console.error('Error creating document: ', error);
-            });
+        const newCollectionRef = collection(db, "posts");
+        await addDoc(newCollectionRef, post);
+      
+        // Reinicia los estados del formulario
+        setDescription("")
+        setFile(null)
+        setImageURL(imageURL);
     };
-
-
+    
+    //   Reseteamos el valor del form
 
     // Funcion para obtener los posts y renderizarlos de nuevo con useEffect
     const getPosts = () => {
@@ -76,7 +71,7 @@ export const Post = (props) => {
 
     const handleLogoutClick = () => {
         firebase.auth().signOut();
-      };
+    };
 
     // Funcion para eliminar los posts
     const handleDelete = (id) => {
@@ -130,7 +125,7 @@ export const Post = (props) => {
 
     return (
         <>
-            
+
             <form onSubmit={handleSubmit} className="form container mt-5 w-100">
                 <div className="card text-center">
                     <div className="card-body">
@@ -144,11 +139,12 @@ export const Post = (props) => {
                                 onChange={(e) => setDescription(e.target.value)}
                                 value={description}
                             />
+                            <input type="file" onChange={e => setFile(e.target.files[0])} />
                             <span className="input-group-text" id="inputGroup-sizing-sm">
                                 <AiFillEdit />
                             </span>
                             <button className="col-auto">
-                                <FcCheckmark style={{ color: 'black'}} size="2em"/>
+                                <FcCheckmark style={{ color: 'black' }} size="2em" />
                             </button>
                         </div>
                     </div>
@@ -167,6 +163,7 @@ export const Post = (props) => {
 
                                 <h4>{post.name}</h4>
                                 <p>{post.description}</p>
+                                {post.imageURL && <img src={post.imageURL} alt="Post image" />}
                                 <AiOutlineLike className="m-2"
                                     onClick={() => handleLike(post.id, post.likes)}
                                 />
