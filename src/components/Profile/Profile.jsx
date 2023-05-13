@@ -1,10 +1,10 @@
-
-
 import React from 'react'
 
-export const Profile = () => {
+export const Profile = (props) => {
+
   return (
-    <div>Profile</div>
+    <div className='mt-5'>Nombre: {props.user && props.user.displayName}</div>
+
   )
 }
 

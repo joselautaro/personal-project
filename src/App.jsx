@@ -8,6 +8,9 @@ import { Post } from './components/Post/Post'
 import { PostsProvider } from './context/PostsContext'
 import { LoginWithGoogle } from './components/LoginLogout/LoginWithGoogle/LoginWithGoogle'
 import { NavBar } from './components/NavBar/NavBar'
+import { useAuthState } from "react-firebase-hooks/auth";
+import 'firebase/compat/auth';
+import firebase from "firebase/compat/app";
 import { Profile } from './components/Profile/Profile'
 import {
   BrowserRouter as Router,
@@ -19,6 +22,7 @@ import {
 
 
 function App() {
+  const [user] = useAuthState(firebase.auth());
 
   return (
     <>
@@ -30,7 +34,7 @@ function App() {
               <Route path='/' element={<LoginWithGoogle />} />
               <Route path='/post' element={<Post />} />
               <Route path='/loginwithform' element={<LoginWithForm />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route path='/profile' element={<Profile user={user} />} />
               <Route path='/register' element={<Register />} />
             </Routes>
           </Router>

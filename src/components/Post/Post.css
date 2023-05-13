@@ -1,13 +1,19 @@
-
+.form{
+  position: fixed;
+  top: 0;
+  /* margin-bottom: 200px; */
+  z-index: 500;
+  /* width: 100%; */
+}
 .card-title{
   font-size: 15px;
 }
 .cards{
-  margin-top: 125px;
+  margin-top: 200px;
 }
-@media (max-width: 400px){
+@media (max-width: 320px){
   .cards{
-    margin-top: 125px;
+    margin-top: 150px;
   }
 }
 

@@ -1,9 +1,9 @@
-import { addDoc, collection, getFirestore, getDocs, onSnapshot, deleteDoc, doc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore"
-// import { getAuth } from "firebase/auth";
+import { addDoc, collection, getFirestore, onSnapshot, deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore"
+
 import "firebase/compat/auth";
 import firebase from "firebase/compat/app";
 import React, { useState, useEffect } from "react"
-import { useAuthState } from "react-firebase-hooks/auth";
+
 import { AiFillEdit } from 'react-icons/ai'
 import { SlTrash } from 'react-icons/sl'
 import {FcCheckmark } from 'react-icons/fc'
@@ -66,7 +66,6 @@ export const Post = (props) => {
                 posts.push({ ...doc.data(), id: doc.id });
             });
             setPosts(posts)
-            // console.log(posts)
         });
         return () => unsubcribe()
     };
@@ -77,7 +76,6 @@ export const Post = (props) => {
 
     const handleLogoutClick = () => {
         firebase.auth().signOut();
-        setIsLoggedIn(false)
       };
 
     // Funcion para eliminar los posts
@@ -119,7 +117,6 @@ export const Post = (props) => {
         if (!posting) {
             Swal.fire({
                 icon: 'success',
-                // title: `El link de tu publicación es: ${shareUrl}`,
                 html: `
                     <p>Copialo y pegalo donde quieras</p>
                     <button onclick="navigator.clipboard.writeText('${shareUrl}')">
@@ -134,7 +131,7 @@ export const Post = (props) => {
     return (
         <>
             
-            <form onSubmit={handleSubmit} className="form container fixed-top">
+            <form onSubmit={handleSubmit} className="form container mt-5 w-100">
                 <div className="card text-center">
                     <div className="card-body">
                         <h5 className="card-title">Hola, {props.userName}¿Como te sientes el dia de hoy?</h5>
